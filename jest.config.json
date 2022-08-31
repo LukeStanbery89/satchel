@@ -1,0 +1,10 @@
+{
+    "verbose": true,
+    "testEnvironment": "node",
+    "notify": true,
+    "coveragePathIgnorePatterns": [
+        "/node_modules/",
+        "<rootDir>/dist/",
+        "<rootDir>/test/"
+    ]
+}
