@@ -1,9 +1,14 @@
 {
-    "name": "npm-package-boilerplate",
-    "version": "1.0.0",
-    "description": "Boilerplate NPM package.",
+    "name": "@lukestanbery/satchel",
+    "version": "0.1.0",
+    "description": "Simple and lightweight package for caching data to a local key value store.",
     "source": "src/index.js",
     "main": "dist/index.js",
+    "targets": {
+        "main": {
+            "optimize": true
+        }
+    },
     "scripts": {
         "build": "parcel build",
         "postinstall": "./scripts/postinstall.sh",
