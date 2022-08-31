@@ -4,6 +4,11 @@
     "description": "Boilerplate NPM package.",
     "source": "src/index.js",
     "main": "dist/index.js",
+    "targets": {
+        "main": {
+            "optimize": true
+        }
+    },
     "scripts": {
         "build": "parcel build",
         "postinstall": "./scripts/postinstall.sh",
