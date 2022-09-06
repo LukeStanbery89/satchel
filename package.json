@@ -12,6 +12,7 @@
     "scripts": {
         "build": "parcel build",
         "postinstall": "./scripts/postinstall.sh",
+        "prepublishOnly": "npm run build",
         "test-unit": "jest --coverage=true ./test/unit --verbose --runInBand"
     },
     "files": [
