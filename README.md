@@ -1,3 +1,6 @@
+[![CodeQL](https://github.com/LukeStanbery89/satchel/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LukeStanbery89/satchel/actions/workflows/codeql-analysis.yml)
+[![Unit Tests](https://github.com/LukeStanbery89/satchel/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/LukeStanbery89/satchel/actions/workflows/unit-tests.yml)
+
 # Satchel
 Simple and lightweight package for caching data to a local key value store.
 
