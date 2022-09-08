@@ -4,6 +4,9 @@ function readCacheFileContents(cacheFilePath) {
     // console.log('!!! READ FROM CACHE FILE !!!');
     try {
         const cacheFileContents = fs.readFileSync(cacheFilePath);
+        if (cacheFileContents === undefined) {
+            return {};
+        }
         return JSON.parse(cacheFileContents);
     } catch (e) {
         console.error('[GET_CACHE_FILE] error: ', e);
