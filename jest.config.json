@@ -6,5 +6,8 @@
         "/node_modules/",
         "<rootDir>/dist/",
         "<rootDir>/test/"
-    ]
+    ],
+    "moduleNameMapper": {
+        "fs": "<rootDir>/test/unit/mocks/fs.js"
+    }
 }
