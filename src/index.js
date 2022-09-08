@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const { readCacheFileContents, writeCacheToFS } = require('./file-utils');
 const { cacheRecordIsStale, removeCacheRecord, getCurrentTimeStamp, generateExpiryTimestamp } = require('./cache-utils');

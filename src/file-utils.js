@@ -1,7 +1,8 @@
+'use strict';
+
 const fs = require('fs');
 
 function readCacheFileContents(cacheFilePath) {
-    // console.log('!!! READ FROM CACHE FILE !!!');
     try {
         const cacheFileContents = fs.readFileSync(cacheFilePath);
         if (cacheFileContents === undefined) {

@@ -1,3 +1,5 @@
+'use strict';
+
 function cacheRecordIsStale(cacheRecord) {
     return getCurrentTimeStamp() >= cacheRecord.expires;
 }
