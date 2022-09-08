@@ -22,7 +22,8 @@ function all() {
  * Writes a new record to the store.
  * 
  * @param {string} cacheID - The key to store record.
- * @param {*} - The value to be stored.
+ * @param {*} data - The value to be stored.
+ * @param {string} lifespan (optional) - The expiry timestamp for the cache store record.
  * 
  * @returns {boolean}
  */
@@ -71,6 +72,7 @@ function remove(cacheID) {
  * Refreshes the expiry time of a store record to the current timestamp.
  * 
  * @param {*} cacheID - The key of the store record to be refreshed.
+ * @param {string} lifespan (optional) - The expiry timestamp for the cache store record.
  * 
  * @returns {boolean} 
  */
@@ -117,7 +119,7 @@ function getExpiry(cacheID) {
  * @param {string} cacheID 
  * @param {BigInt} timestamp
  *  
- * @returns {boolean} 
+ * @returns {boolean}
  */
 function setExpiry(cacheID, timestamp) {
     let cacheFileContents = readCacheFileContents(CACHE_FILE_PATH);
