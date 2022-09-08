@@ -34,14 +34,12 @@ describe('File Utils', () => {
 
         // Retrieve the cache store contents
         const result = readCacheFileContents(CACHE_FILE_PATH);
-        console.log('1 result: ', result);
         expect(result).toStrictEqual({});
     });
 
     test('readCacheFileContents() returns {} when the cache file does not exist', () => {
         // Retrieve the cache store contents
         const result = readCacheFileContents('THIS_DOES_NOT_EXIST');
-        console.log('2 result: ', result);
         expect(result).toStrictEqual({});
     });
 });
