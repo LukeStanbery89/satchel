@@ -7,7 +7,7 @@ const satchel = require('../../src/index');
 const CACHE_FILE_PATH = path.join(process.cwd(), '/.satchel-cache/cache.json');
 const NUMBER_AS_STRING_REGEX = /^[0-9]{1,20}$/;
 
-describe('Index.js', () => {
+describe('Index', () => {
     test('all() returns {} from empty cache file', () => {
         fs.__setMockFiles({});
         expect(satchel.all()).toStrictEqual({});
@@ -79,6 +79,19 @@ describe('Index.js', () => {
                 }),
             })
         );
+    });
+
+    // TODO: Validate the actual lifespan value
+    test('write() creates a record with the correct lifespan', () => {
+        // Write test data
+        satchel.write('key1', 'Foo', 5);
+        satchel.write('key2', 'Bar');
+        satchel.write('key3', 'Baz', 30);
+
+        // Validate
+        const cacheFile = JSON.parse(fs.readFileSync(CACHE_FILE_PATH));
+        expect(parseInt(cacheFile.key1.expires)).toBeLessThan(parseInt(cacheFile.key2.expires));
+        expect(parseInt(cacheFile.key2.expires)).toBeLessThan(parseInt(cacheFile.key3.expires));
     });
 
     test('read() returns a given cache store record', () => {
@@ -180,8 +193,8 @@ describe('Index.js', () => {
 
     test('remove() does nothing but return false when the cache file does not exist', () => {
         // Remove key1
-        const result = satchel.remove('key1');
 
+        const result = satchel.remove('key1');
         // Validate
         expect(result).toBe(true);
     });
@@ -209,6 +222,37 @@ describe('Index.js', () => {
         const cacheFile = JSON.parse(fs.readFileSync(CACHE_FILE_PATH));
         expect(parseInt(cacheFile.key1.expires)).toBeGreaterThan(-1);
         expect(parseInt(cacheFile.key2.expires)).toBe(-1);
+    });
+
+    test('hydrate() updates the expiry of the given record with a specified lifespan', () => {
+        // Mock the cache contents
+        const cacheContents = {
+            key1: {
+                expires: '-1',
+                data: 'Foo',
+            },
+            key2: {
+                expires: '-1',
+                data: 'Bar',
+            },
+            key3: {
+                expires: '-1',
+                data: 'Bar',
+            },
+        };
+        let mockfiles = {};
+        mockfiles[CACHE_FILE_PATH] = JSON.stringify(cacheContents);
+        fs.__setMockFiles(mockfiles);
+
+        // Hydrate the store record
+        satchel.hydrate('key1', 5);
+        satchel.hydrate('key2');
+        satchel.hydrate('key3', 30);
+
+        // Validate
+        const cacheFile = JSON.parse(fs.readFileSync(CACHE_FILE_PATH));
+        expect(parseInt(cacheFile.key1.expires)).toBeLessThan(parseInt(cacheFile.key2.expires));
+        expect(parseInt(cacheFile.key2.expires)).toBeLessThan(parseInt(cacheFile.key3.expires));
     });
 
     test('hydrate() does nothing but return false when attempting to hydrate a non-existent store record', () => {
@@ -288,7 +332,10 @@ describe('Index.js', () => {
     });
 
     test('invalidate() does nothing but return false when the cache file does not exist', () => {
+        // Invalidate key3
         const result = satchel.invalidate('key3');
+
+        // Verify
         expect(result).toBe(false);
     });
 
@@ -334,7 +381,10 @@ describe('Index.js', () => {
     });
 
     test('getExpiry() returns undefined when the cache file does not exist', () => {
+        // Get expiry for key3
         const result = satchel.getExpiry('key3');
+
+        // Validate
         expect(result).toBe(undefined);
     });
 
@@ -387,7 +437,10 @@ describe('Index.js', () => {
     });
 
     test('setExpiry() does nothing but return false when the cache file does not exist', () => {
+        // Set expiry for key3
         const result = satchel.setExpiry('key3', '3333333333');
+
+        // Validate
         expect(result).toBe(false);
     });
 });
