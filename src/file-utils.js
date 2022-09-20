@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
 function readCacheFileContents(cacheFilePath) {
     try {
@@ -10,9 +11,12 @@ function readCacheFileContents(cacheFilePath) {
         }
         return JSON.parse(cacheFileContents);
     } catch (e) {
-        console.error('[GET_CACHE_FILE] error: ', e);
-        if (!fs.existsSync(cacheFilePath)) {
-            fs.mkdirSync(cacheFilePath);
+        const cachefileDir = path.dirname(cacheFilePath);
+        if (!fs.existsSync(cachefileDir)) {
+            console.log('Creating cache directory...');
+            fs.mkdirSync(cachefileDir);
+        } else {
+            console.error('[GET_CACHE_FILE_ERROR]', cacheFilePath, e);
         }
         return {};
     }
@@ -23,7 +27,7 @@ function writeCacheToFS(cacheFilePath, cacheFileContents) {
         fs.writeFileSync(cacheFilePath, JSON.stringify(cacheFileContents));
         return true;
     } catch (e) {
-        console.error('[WRITE_CACHE_TO_FS] error: ', e, cacheFilePath, cacheFileContents, typeof cacheFileContents);
+        console.error('[WRITE_CACHE_TO_FS_ERROR]', cacheFilePath, typeof cacheFileContents, cacheFileContents, e);
         return false;
     }
 }
