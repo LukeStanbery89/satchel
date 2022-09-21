@@ -60,6 +60,50 @@ describe('Index', () => {
         );
     });
 
+    test('write() updates an existing cache record with the same cacheID', () => {
+        // Starts empty
+        fs.__setMockFiles({});
+        let cacheFile = fs.readFileSync(CACHE_FILE_PATH);
+        expect(cacheFile).toBe(undefined);
+
+        // Write test data
+        satchel.write('test1', 'Foo');
+        satchel.write('test2', 'Bar');
+
+        // Validate
+        cacheFile = JSON.parse(fs.readFileSync(CACHE_FILE_PATH));
+        expect(cacheFile).toEqual(
+            expect.objectContaining({
+                test1: expect.objectContaining({
+                    expires: expect.stringMatching(NUMBER_AS_STRING_REGEX),
+                    data: 'Foo',
+                }),
+                test2: expect.objectContaining({
+                    expires: expect.stringMatching(NUMBER_AS_STRING_REGEX),
+                    data: 'Bar',
+                }),
+            })
+        );
+
+        // Update test data
+        satchel.write('test1', 'Baz');
+
+        // Validate updates
+        cacheFile = JSON.parse(fs.readFileSync(CACHE_FILE_PATH));
+        expect(cacheFile).toEqual(
+            expect.objectContaining({
+                test1: expect.objectContaining({
+                    expires: expect.stringMatching(NUMBER_AS_STRING_REGEX),
+                    data: 'Baz',
+                }),
+                test2: expect.objectContaining({
+                    expires: expect.stringMatching(NUMBER_AS_STRING_REGEX),
+                    data: 'Bar',
+                }),
+            })
+        );
+    });
+
     test('write() creates a new cache record when the cache file does not exist', () => {
         // Write test data
         satchel.write('test1', 'Foo');
