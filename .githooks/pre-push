@@ -41,7 +41,7 @@ do
         fi
 
         # Run unit tests
-        npm run test-unit
+        npm run test
 
         # now if tests failed let's abort commit by "exit 1"
         # if not, congratulations, commit is now in Git
