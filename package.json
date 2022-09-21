@@ -1,6 +1,6 @@
 {
     "name": "@lukestanbery/satchel",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Simple and lightweight package for caching data to a local key value store.",
     "source": "src/index.js",
     "main": "dist/index.js",
