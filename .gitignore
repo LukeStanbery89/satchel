@@ -1,3 +1,4 @@
 .parcel-cache
+.satchel-cache
 coverage
 node_modules
