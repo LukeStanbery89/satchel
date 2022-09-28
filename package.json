@@ -11,15 +11,26 @@
     },
     "scripts": {
         "build": "parcel build",
+        "prepare": "husky install",
         "prepublishOnly": "npm run build",
-        "test": "jest --coverage=true ./test/unit --verbose --runInBand",
-        "prepare": "husky install"
+        "test": "jest --coverage=true ./test/unit --verbose --runInBand"
     },
     "files": [
         "dist/*"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LukeStanbery89/satchel.git"
+    },
+    "keywords": [
+        "cache"
+    ],
     "author": "Luke Stanbery",
     "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LukeStanbery89/satchel/issues"
+    },
+    "homepage": "https://github.com/LukeStanbery89/satchel#readme",
     "devDependencies": {
         "@jest/types": "^29.0.2",
         "husky": "^8.0.1",
