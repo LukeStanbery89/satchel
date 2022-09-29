@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 const fs = jest.createMockFromModule('fs');
 
 // This is a custom function that our tests can use during setup to specify
